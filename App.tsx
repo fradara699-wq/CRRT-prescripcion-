@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -129,7 +128,6 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
     const isSled = prescription.category === TreatmentCategory.SLED;
     
     if (isSled) {
-      // SLED Specific Report
       doc.setDrawColor(44, 62, 80);
       doc.setLineWidth(1.5);
       doc.rect(5, 5, 200, 287);
@@ -142,7 +140,6 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
       doc.setTextColor(150, 150, 150);
       doc.text('UNIDAD DE CUIDADOS CRÍTICOS - PROTOCOLO DE ALTA PRECISIÓN', 105, 25, { align: 'center' });
 
-      // 1. ENCABEZADO DE IDENTIFICACIÓN
       doc.setFontSize(10);
       doc.setTextColor(0, 0, 0);
       doc.text('1. ENCABEZADO DE IDENTIFICACIÓN', 15, 35);
@@ -159,7 +156,6 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
         columnStyles: { 0: { fontStyle: 'bold', fillColor: [240, 240, 240] }, 2: { fontStyle: 'bold', fillColor: [240, 240, 240] } }
       });
 
-      // 2. CONFIGURACIÓN TÉCNICA Y HARDWARE
       const hardwareY = (doc as any).lastAutoTable.finalY + 10;
       doc.text('2. CONFIGURACIÓN TÉCNICA Y HARDWARE', 15, hardwareY);
       
@@ -177,7 +173,6 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
         columnStyles: { 0: { fontStyle: 'bold', cellWidth: 60, fillColor: [240, 240, 240] } }
       });
 
-      // 3. LÍQUIDO DE DIÁLISIS (CONCENTRADO ÁCIDO)
       const liquidY = (doc as any).lastAutoTable.finalY + 10;
       doc.text('3. LÍQUIDO DE DIÁLISIS (CONCENTRADO ÁCIDO)', 15, liquidY);
       
@@ -199,7 +194,6 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
         styles: { fontSize: 8, cellPadding: 2 }
       });
 
-      // 4. PROTOCOLO TÉCNICO (PARÁMETROS OPERATIVOS)
       const protocolY = (doc as any).lastAutoTable.finalY + 10;
       doc.text('4. PROTOCOLO TÉCNICO (PARÁMETROS OPERATIVOS)', 15, protocolY);
       
@@ -216,7 +210,6 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
         columnStyles: { 0: { fontStyle: 'bold', cellWidth: 60, fillColor: [240, 240, 240] } }
       });
 
-      // 5. ANTICOAGULACIÓN
       const antiY = (doc as any).lastAutoTable.finalY + 10;
       doc.text('5. ANTICOAGULACIÓN', 15, antiY);
       
@@ -232,7 +225,6 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
         columnStyles: { 0: { fontStyle: 'bold', cellWidth: 60, fillColor: [240, 240, 240] } }
       });
 
-      // 6. GESTIÓN HÍDRICA
       const fluidY = (doc as any).lastAutoTable.finalY + 10;
       doc.text('6. GESTIÓN HÍDRICA', 15, fluidY);
       
@@ -250,7 +242,6 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
         columnStyles: { 0: { fontStyle: 'bold', cellWidth: 60, fillColor: [240, 240, 240] } }
       });
 
-      // Signature
       const signY = 270;
       doc.setFontSize(10);
       doc.setFont('helvetica', 'bold');
@@ -259,30 +250,25 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
       doc.line(120, signY - 2, 180, signY - 2);
 
     } else {
-      // CRRT Report (Keep existing or slightly update)
       const liquid = LIQUID_COMPOSITIONS[prescription.crrtLiquidKey];
       
-      // Border
       doc.setDrawColor(168, 0, 0);
       doc.setLineWidth(1.5);
       doc.rect(5, 5, 200, 287);
       
-      // Header
       doc.setFontSize(18);
       doc.setTextColor(168, 0, 0);
-      doc.text('PROTOCOLO TÉCNICO DE SOPORTE RENAL v22.0', 105, 20, { align: 'center' });
+      doc.text('PRESCRIPCIÓN PRO', 105, 20, { align: 'center' });
       doc.setFontSize(8);
       doc.setTextColor(150, 150, 150);
-      doc.text('CULLEN PRO SERIES - REPORTE DE PRESCRIPCIÓN INTEGRAL', 105, 25, { align: 'center' });
+      doc.text('REPORTE DE PRESCRIPCIÓN INTEGRAL', 105, 25, { align: 'center' });
 
-      // 1. PRESCRIPCIÓN MÉDICA – CRRT
       const prescriptionY = 35;
 
       doc.setFontSize(10);
       doc.setFont('helvetica', 'bold');
       doc.text('1. PRESCRIPCIÓN MÉDICA – CRRT', 15, prescriptionY);
 
-      // 🔹 IDENTIFICACIÓN Y DATOS ANTROPOMÉTRICOS
       autoTable(doc, {
         startY: prescriptionY + 5,
         head: [['🔹 IDENTIFICACIÓN Y DATOS ANTROPOMÉTRICOS', 'VALOR']],
@@ -302,7 +288,6 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
         styles: { fontSize: 8 }
       });
 
-      // 🔹 GESTIÓN HÍDRICA & BALANCE
       autoTable(doc, {
         startY: (doc as any).lastAutoTable.finalY + 5,
         head: [['🔹 GESTIÓN HÍDRICA & BALANCE', 'VALOR']],
@@ -318,7 +303,6 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
         styles: { fontSize: 8 }
       });
 
-      // 🔹 CONFIGURACIÓN TÉCNICA & HARDWARE
       autoTable(doc, {
         startY: (doc as any).lastAutoTable.finalY + 5,
         head: [['🔹 CONFIGURACIÓN TÉCNICA & HARDWARE', 'VALOR']],
@@ -341,7 +325,6 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
         styles: { fontSize: 8 }
       });
 
-      // 🔹 PERFIL DE LÍQUIDOS
       autoTable(doc, {
         startY: (doc as any).lastAutoTable.finalY + 5,
         head: [['🔹 PERFIL DE LÍQUIDOS', 'VALOR']],
@@ -355,7 +338,6 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
         styles: { fontSize: 8 }
       });
 
-      // 🔹 PROTOCOLO CRRT – HP
       const isCitrate = prescription.anticoagulation === AnticoagulationType.CITRATE;
       autoTable(doc, {
         startY: (doc as any).lastAutoTable.finalY + 5,
@@ -376,7 +358,6 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
         styles: { fontSize: 8 }
       });
 
-      // 3️⃣ BIBLIOGRAFÍA
       const finalY = (doc as any).lastAutoTable.finalY + 10;
       doc.setFontSize(8);
       doc.setTextColor(100, 100, 100);
@@ -391,9 +372,9 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
     const pageHeight = doc.internal.pageSize.height;
     doc.setFontSize(7);
     doc.setTextColor(180, 180, 180);
-    doc.text(`Generado por Cullen Pro v22.0 | ${new Date().toLocaleString()}`, 105, pageHeight - 10, { align: 'center' });
+    doc.text(`Generado por Prescripción Pro | ${new Date().toLocaleString()}`, 105, pageHeight - 10, { align: 'center' });
 
-    doc.save(`Prescripcion_Renal_v22_${patient.name || 'Reporte'}.pdf`);
+    doc.save(`Prescripcion_Pro_${patient.name || 'Reporte'}.pdf`);
   };
 
   if (!treatmentSelected) {
@@ -402,8 +383,8 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
         <div className="w-20 h-20 bg-white border border-[#E0E0E0] premium-shadow rounded-2xl flex items-center justify-center mb-8">
           <i className="fas fa-stethoscope text-[#A80000] text-3xl"></i>
         </div>
-        <h1 className="text-3xl font-black mb-1 uppercase tracking-tighter text-center">Protocolo de <span className="text-[#A80000]">Soporte Renal</span></h1>
-        <p className="text-slate-400 text-[11px] font-bold tracking-[0.4em] uppercase mb-12">v22.0 • Módulo de Alta Precisión</p>
+        <h1 className="text-3xl font-black mb-1 uppercase tracking-tighter text-center">Prescripción <span className="text-[#A80000]">Pro</span></h1>
+        <p className="text-slate-400 text-[11px] font-bold tracking-[0.4em] uppercase mb-12">Módulo de Alta Precisión</p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-xl">
           <button 
@@ -449,7 +430,7 @@ Paciente cursa shock séptico refractario en contexto de proceso infeccioso en t
       <header className="bg-white border-b border-[#E0E0E0] premium-shadow p-4 flex items-center justify-between md:px-12 sticky top-0 z-50 no-print">
         <div className="flex items-center gap-3">
           <i className="fas fa-wave-square text-[#A80000]"></i>
-          <span className="font-black text-sm tracking-[0.2em] text-[#A80000] uppercase">Cullen Pro v22.0</span>
+          <span className="font-black text-sm tracking-[0.2em] text-[#A80000] uppercase">Prescripción Pro</span>
         </div>
         <button onClick={exportToPdf} className="bg-[#A80000] text-white px-6 py-2 rounded-full font-bold text-[10px] tracking-widest hover:bg-[#850000] transition-all uppercase shadow-md active:scale-95">
           <i className="fas fa-file-pdf mr-2"></i> Reporte PDF
