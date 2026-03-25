@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo Técnico de Soporte Renal v18.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        
+        :root {
+            --red-crimson: #A80000;
+            --steel-blue: #2C3E50;
+            --snow-white: #FAFAFA;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--snow-white);
+            color: var(--steel-blue);
+            margin: 0;
+            padding: 0;
+        }
+
+        .premium-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        input, select {
+            border: 1px solid #E0E0E0;
+            border-radius: 4px;
+            padding: 10px;
+            background-color: #FFFFFF;
+            transition: all 0.2s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--red-crimson) !important;
+            ring: 0 !important;
+            outline: none !important;
+            box-shadow: 0 0 0 2px rgba(168, 0, 0, 0.1);
+        }
+
+        .btn-nav-premium {
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--steel-blue);
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .btn-nav-premium:hover {
+            color: var(--red-crimson);
+            background-color: rgba(168, 0, 0, 0.05);
+        }
+
+        .btn-nav-premium.active {
+            color: var(--red-crimson);
+            border-bottom-color: var(--red-crimson);
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background-color: white; }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #A80000; border-radius: 10px; }
+
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+            font-size: 0.75rem;
+        }
+        .markdown-body th, .markdown-body td {
+            border: 1px solid #e2e8f0;
+            padding: 0.5rem;
+            text-align: left;
+        }
+        .markdown-body th {
+            background-color: #f8fafc;
+            font-weight: 700;
+        }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .markdown-body hr {
+            margin: 1rem 0;
+            border: 0;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "jspdf": "https://esm.sh/jspdf@2.5.1",
+    "jspdf-autotable": "https://esm.sh/jspdf-autotable@3.8.2"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>

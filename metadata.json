@@ -1,0 +1,5 @@
+{
+  "name": "CRRT Precision Prescriber",
+  "description": "A comprehensive clinical tool for generating and validating Continuous Renal Replacement Therapy (CRRT) prescriptions for adult and pediatric patients, featuring automated dose calculations and AI-driven clinical insights.",
+  "requestFramePermissions": []
+}
