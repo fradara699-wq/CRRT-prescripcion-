@@ -7,6 +7,7 @@ interface PatientFormProps {
 }
 
 const PatientForm: React.FC<PatientFormProps> = ({ patient, setPatient }) => {
+
   useEffect(() => {
     if (patient.weight > 0 && patient.height > 0 && patient.age > 0) {
       let v = 0;
@@ -34,19 +35,15 @@ const PatientForm: React.FC<PatientFormProps> = ({ patient, setPatient }) => {
     }
   }, [patient.weight, patient.height, patient.age, patient.sex, setPatient]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
 
     setPatient(prev => {
       let newValue: any = value;
 
-      // 🔥 CLAVE: sex NO se convierte a número
       if (
         name !== 'name' &&
         name !== 'accessType' &&
-        name !== 'accessSide' &&
         name !== 'sex'
       ) {
         newValue = value === '' ? 0 : Number(value);
@@ -57,15 +54,45 @@ const PatientForm: React.FC<PatientFormProps> = ({ patient, setPatient }) => {
     });
   };
 
-  const labelClass =
-    'text-[10px] font-black text-[#2C3E50] uppercase tracking-widest mb-2 block opacity-70';
-
-  const inputClass =
-    'w-full p-3 bg-white border border-[#E0E0E0] rounded focus:border-[#A80000] outline-none font-semibold text-sm transition-all';
+  const labelClass = "text-[10px] font-black text-[#2C3E50] uppercase tracking-widest mb-2 block opacity-70";
+  const inputClass = "w-full p-3 bg-white border border-[#E0E0E0] rounded focus:border-[#A80000] outline-none font-semibold text-sm transition-all";
 
   return (
     <div className="space-y-6">
+
+      {/* 🔹 IDENTIFICACIÓN */}
+      <div>
+        <label className={labelClass}>Nombre del Paciente</label>
+        <input
+          type="text"
+          name="name"
+          value={patient.name}
+          onChange={handleChange}
+          className={inputClass}
+          placeholder="Nombre / ID"
+        />
+      </div>
+
+      {/* 🔹 ACCESO VASCULAR */}
+      <div>
+        <label className={labelClass}>Acceso Vascular</label>
+        <select
+          name="accessType"
+          value={patient.accessType}
+          onChange={handleChange}
+          className={inputClass}
+        >
+          <option value="">Seleccionar</option>
+          <option value="Yugular derecha">Yugular derecha</option>
+          <option value="Yugular izquierda">Yugular izquierda</option>
+          <option value="Femoral derecha">Femoral derecha</option>
+          <option value="Femoral izquierda">Femoral izquierda</option>
+        </select>
+      </div>
+
+      {/* 🔹 DATOS ANTROPOMÉTRICOS */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+
         <div>
           <label className={labelClass}>Edad</label>
           <input
@@ -100,7 +127,7 @@ const PatientForm: React.FC<PatientFormProps> = ({ patient, setPatient }) => {
         </div>
 
         <div>
-          <label className={labelClass}>Sexo Biológico</label>
+          <label className={labelClass}>Sexo</label>
           <select
             name="sex"
             value={patient.sex}
@@ -111,12 +138,14 @@ const PatientForm: React.FC<PatientFormProps> = ({ patient, setPatient }) => {
             <option value={PatientSex.FEMALE}>Mujer</option>
           </select>
         </div>
+
       </div>
 
+      {/* 🔹 RESULTADOS */}
       <div className="grid grid-cols-2 gap-4">
         <div className="p-4 bg-[#F8F9FA] rounded border border-[#E0E0E0] flex justify-between items-center text-xs font-bold">
           <span className="text-[#7F8C8D] uppercase tracking-wider">
-            Volumen Distribución:
+            Volumen Distribución
           </span>
           <span className="text-[#A80000] text-lg font-black">
             {patient.actV || '0'} L
@@ -125,13 +154,14 @@ const PatientForm: React.FC<PatientFormProps> = ({ patient, setPatient }) => {
 
         <div className="p-4 bg-[#F8F9FA] rounded border border-[#E0E0E0] flex justify-between items-center text-xs font-bold">
           <span className="text-[#7F8C8D] uppercase tracking-wider">
-            Superficie Corporal:
+            Superficie Corporal
           </span>
           <span className="text-[#2C3E50] text-lg font-black">
             {patient.bsa || '0'} m²
           </span>
         </div>
       </div>
+
     </div>
   );
 };
